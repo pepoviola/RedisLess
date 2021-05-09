@@ -414,31 +414,31 @@ mod tests {
         let x: u32 = con.get("intkey").unwrap();
         assert_eq!(x, 11u32);
 
-        let _: () = con.set("intkeyby", "10").unwrap();
+        let _: () = con.set("key3", "10").unwrap();
         let _ = con
             .send_packed_command(
                 cmd("INCRBY")
-                    .arg("intkeyby")
+                    .arg("key3")
                     .arg(10)
                     .get_packed_command()
                     .as_slice(),
             )
             .unwrap();
 
-        let x: u32 = con.get("intkeyby").unwrap();
+        let x: u32 = con.get("key3").unwrap();
         assert_eq!(x, 20u32);
 
         let _ = con
             .send_packed_command(
                 cmd("INCRBY")
-                    .arg("intkeyby")
+                    .arg("key3")
                     .arg(-5)
                     .get_packed_command()
                     .as_slice(),
             )
             .unwrap();
 
-        let x: u32 = con.get("intkeyby").unwrap();
+        let x: u32 = con.get("key3").unwrap();
         assert_eq!(x, 15u32);
 
         assert_eq!(server.stop(), Some(ServerState::Stopped));
